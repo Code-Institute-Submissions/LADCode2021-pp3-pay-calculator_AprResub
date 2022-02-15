@@ -28,14 +28,36 @@ def get_dealer_data():
     via the terminal, which must match a dealer ID in the dealers worksheet.
     The loop will repeatedly request data, until it is valid.
     """
+    while True:
 
-    print("Please enter Dealer ID\n")
-    print("This must match a Dealer ID in the 'dealer' tab")
-    print("Example: 1\n")
+        print("Please enter Dealer ID\n")
+        print("This must match a Dealer ID in the 'dealer' tab")
+        print("Example: 1\n")
 
-    dealer_id = input("Enter Dealer ID here:\n")
+        dealer_id = input("Enter Dealer ID here:\n")
+
+        if dealer_data_validation(dealer_id):
+            print("Data is valid!")
+            break
 
     return dealer_id
+
+def dealer_data_validation(value):
+    """
+    Checks an integer has been entered and checks and
+    if the dealer ID exists in the Google Sheet.
+    """
+    try:
+        int(value)
+        if value not in SHEET.worksheet('dealer').col_values(1):
+            raise ValueError(
+                f"{value} not in dealer worksheet. Please enter valid dealer"
+            )
+    except ValueError as e:
+        print(f"Invalid data: {e}, please try again.\n")
+        return False
+
+    return True
 
 def get_dealer_name(dealer_id):
     """
