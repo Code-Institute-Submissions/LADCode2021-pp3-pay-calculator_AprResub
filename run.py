@@ -83,13 +83,34 @@ def get_sales_data():
     via the terminal, which must match a dealer ID in the dealers worksheet.
     The loop will repeatedly request data, until it is valid.
     """
+    while True:
 
-    print("This must be entered as whole number or to two decimal places")
-    print("Example: 100 or 10.50\n")
+        print("This must be entered as whole number or to two decimal places")
+        print("Example: 100 or 10.50\n")
 
-    sales_data = input("Enter sales data for here:\n")
+        sales_data = input("Enter sales data for here:\n")
+
+        if sales_data_validation(sales_data):
+            print("Data is valid")
+            break
 
     return sales_data
+
+def sales_data_validation(value):
+    """
+    Checks an integer has been entered and checks and
+    if the dealer ID exists in the Google Sheet.
+    """
+    try:
+        if float(value):
+            pass
+        elif int(value):
+            pass
+    except ValueError as e:
+        print(f"Invalid data: {e}, please try again.\n")
+        return False
+
+    return True
 
 def calculate_dealer_pay(sales_data):
     """
