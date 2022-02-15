@@ -17,12 +17,6 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('dealer_details')
 
-def clear_worksheet():
-    """
-    Clears any data in the pay worksheet generated in
-    the last use of the pay calculator
-    """
-    SHEET.worksheet('pay').batch_clear(["B2:D5"])
 
 def get_dealer_data():
     """
@@ -54,6 +48,8 @@ def get_dealer_name(dealer_id):
 
     dealer_name = stored_dealer.get(dealer_id)
     print(f"You are entering sales data for {dealer_name} with Dealer ID {dealer_id}\n")
+    
+    return dealer_name
 
 def get_sales_data():
     """
@@ -80,7 +76,7 @@ def calculate_dealer_pay(sales_data):
     
     dealer_pay = int(sales_data) - ((int(sales_data) * 5) / 100)
 
-    print(dealer_pay)
+    return dealer_pay
 
 def calculate_house_pay(sales_data):
     """
@@ -89,21 +85,28 @@ def calculate_house_pay(sales_data):
 
     house_pay = ((int(sales_data) * 5) / 100)
 
-    print(house_pay)
+    return house_pay
+
+def update_pay_worksheet(dealer_id, dealer_name, dealer_pay, house_pay):
+    """
+    Adds calculations for dealer and house to pay worksheet for storage
+    """
+    row_data = [dealer_id, dealer_name, dealer_pay, house_pay]
+    worksheet_to_update = SHEET.worksheet('pay')
+    worksheet_to_update.append_row(row_data)
+    print(row_data)
 
 
 def main():
     """
     Run all program functions.
     """
-
-    clear_worksheet()
     dealer_id = get_dealer_data()
-    get_dealer_name(dealer_id)
+    dealer_name = get_dealer_name(dealer_id)
     sales_data = get_sales_data()
-    calculate_dealer_pay(sales_data)
-    calculate_house_pay(sales_data)
-
+    dealer_pay = calculate_dealer_pay(sales_data)
+    house_pay = calculate_house_pay(sales_data)
+    update_pay_worksheet(dealer_id, dealer_name, dealer_pay, house_pay)
 main()
 
 
