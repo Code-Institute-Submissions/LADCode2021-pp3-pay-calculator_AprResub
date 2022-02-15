@@ -75,14 +75,21 @@ def get_sales_data():
 
 def calculate_dealer_pay(sales_data):
     """
-    Receives data to update sales worksheet for calculations.
+    Calculates how much to pay the dealer and prints to terminal.
     """
     
     dealer_pay = int(sales_data) - ((int(sales_data) * 5) / 100)
 
     print(dealer_pay)
 
-    
+def calculate_house_pay(sales_data):
+    """
+    Calculates how much to pay the house and prints to terminal.
+    """
+
+    house_pay = ((int(sales_data) * 5) / 100)
+
+    print(house_pay)
 
 
 def main():
@@ -95,6 +102,7 @@ def main():
     get_dealer_name(dealer_id)
     sales_data = get_sales_data()
     calculate_dealer_pay(sales_data)
+    calculate_house_pay(sales_data)
 
 main()
 
