@@ -29,7 +29,7 @@ def get_dealer_data():
     Some inspiration for this function is taken from get_sales_data()
     function in the Love Sandwich walkthrough project
 
-    Get dealer id from the user and return name of dealer.
+    Get dealer id from the user.
     Run a while loop to collect a valid string of data from the user
     via the terminal, which must match a dealer ID in the dealers worksheet.
     The loop will repeatedly request data, until it is valid.
@@ -40,7 +40,13 @@ def get_dealer_data():
     print("Example: 1\n")
 
     dealer_id = input("Enter Dealer ID here:\n")
-    
+
+    return dealer_id
+
+def get_dealer_name(dealer_id):
+    """
+    Gets dealer name stored in dealer worksheet.
+    """
     stored_dealer_id_col = SHEET.worksheet('dealer').col_values(1)
     stored_dealer_name_col = SHEET.worksheet('dealer').col_values(2)
     stored_dealer_combine_list = zip(stored_dealer_id_col, stored_dealer_name_col)
@@ -49,8 +55,26 @@ def get_dealer_data():
     dealer_name = stored_dealer.get(dealer_id)
     print(f"You are entering sales data for {dealer_name} with Dealer ID {dealer_id}")
 
+def get_sales_data():
+    """
+    Some inspiration for this function is taken from get_sales_data()
+    function in the Love Sandwich walkthrough project
+
+    Get sales data for dealer from the user.
+    Run a while loop to collect a valid string of data from the user
+    via the terminal, which must match a dealer ID in the dealers worksheet.
+    The loop will repeatedly request data, until it is valid.
+    """
+    dealer_id = get_dealer_data()
+    dealer_name = get_dealer_name(dealer_id)
+    print(f"Please enter sales data for {dealer_name}")
+    print("This must be entered as whole number or to two decimal places")
+    print("Example: 100 or 10.50\n")
+
+    dealer_id = input(f"Enter sales data for {dealer_name} here:\n")
+
     return dealer_id
 
-
 clear_worksheet()
-get_dealer_data()
+dealer_id = get_dealer_data()
+get_sales_data()
