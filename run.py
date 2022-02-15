@@ -53,7 +53,7 @@ def get_dealer_name(dealer_id):
     stored_dealer = dict(stored_dealer_combine_list)
 
     dealer_name = stored_dealer.get(dealer_id)
-    print(f"You are entering sales data for {dealer_name} with Dealer ID {dealer_id}")
+    print(f"You are entering sales data for {dealer_name} with Dealer ID {dealer_id}\n")
 
 def get_sales_data():
     """
@@ -65,16 +65,23 @@ def get_sales_data():
     via the terminal, which must match a dealer ID in the dealers worksheet.
     The loop will repeatedly request data, until it is valid.
     """
-    dealer_id = get_dealer_data()
-    dealer_name = get_dealer_name(dealer_id)
-    print(f"Please enter sales data for {dealer_name}")
+
     print("This must be entered as whole number or to two decimal places")
     print("Example: 100 or 10.50\n")
 
-    dealer_id = input(f"Enter sales data for {dealer_name} here:\n")
+    sales_data = input("Enter sales data for here:\n")
 
-    return dealer_id
+    return sales_data
 
-clear_worksheet()
-dealer_id = get_dealer_data()
-get_sales_data()
+
+def main():
+    """
+    Run all program functions.
+    """
+
+    clear_worksheet()
+    dealer_id = get_dealer_data()
+    get_dealer_name(dealer_id)
+    get_sales_data()
+
+main()
