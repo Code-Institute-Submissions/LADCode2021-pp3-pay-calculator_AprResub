@@ -29,7 +29,7 @@ def get_dealer_data():
     The loop will repeatedly request data, until it is valid.
     """
 
-    print("Please enter Dealer ID")
+    print("Please enter Dealer ID\n")
     print("This must match a Dealer ID in the 'dealer' tab")
     print("Example: 1\n")
 
@@ -73,8 +73,12 @@ def calculate_dealer_pay(sales_data):
     """
     Calculates how much to pay the dealer and prints to terminal.
     """
-    
-    dealer_pay = int(sales_data) - ((int(sales_data) * 5) / 100)
+    if float(sales_data):
+        dealer_pay = round(float(sales_data) - ((float(sales_data) * 5) / 100), 2)
+    elif int(sales_data):
+        dealer_pay = int(sales_data) - ((int(sales_data) * 5) / 100)
+        
+    print(dealer_pay)
 
     return dealer_pay
 
@@ -82,8 +86,12 @@ def calculate_house_pay(sales_data):
     """
     Calculates how much to pay the house and prints to terminal.
     """
+    if float(sales_data):
+        house_pay = round(((float(sales_data) * 5) / 100), 2)
+    elif int(sales_data):
+        house_pay = ((int(sales_data) * 5) / 100)
 
-    house_pay = ((int(sales_data) * 5) / 100)
+    
 
     return house_pay
 
@@ -107,6 +115,7 @@ def main():
     dealer_pay = calculate_dealer_pay(sales_data)
     house_pay = calculate_house_pay(sales_data)
     update_pay_worksheet(dealer_id, dealer_name, dealer_pay, house_pay)
+
 main()
 
 
