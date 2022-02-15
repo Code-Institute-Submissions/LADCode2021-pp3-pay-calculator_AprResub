@@ -73,6 +73,17 @@ def get_sales_data():
 
     return sales_data
 
+def calculate_dealer_pay(sales_data):
+    """
+    Receives data to update sales worksheet for calculations.
+    """
+    
+    dealer_pay = int(sales_data) - ((int(sales_data) * 5) / 100)
+
+    print(dealer_pay)
+
+    
+
 
 def main():
     """
@@ -82,6 +93,9 @@ def main():
     clear_worksheet()
     dealer_id = get_dealer_data()
     get_dealer_name(dealer_id)
-    get_sales_data()
+    sales_data = get_sales_data()
+    calculate_dealer_pay(sales_data)
 
 main()
+
+
