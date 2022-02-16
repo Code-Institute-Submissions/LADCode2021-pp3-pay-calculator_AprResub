@@ -42,7 +42,9 @@ def get_dealer_data():
 
     return dealer_id
 
+  
 def dealer_data_validation(value):
+    
     """
     Checks an integer has been entered and checks and
     if the dealer ID exists in the Google Sheet.
@@ -59,6 +61,7 @@ def dealer_data_validation(value):
 
     return True
 
+
 def get_dealer_name(dealer_id):
     """
     Gets dealer name stored in dealer worksheet and prints to terminal.
@@ -69,9 +72,10 @@ def get_dealer_name(dealer_id):
     stored_dealer = dict(stored_dealer_combine_list)
 
     dealer_name = stored_dealer.get(dealer_id)
-    print(f"You are entering sales data for {dealer_name} with Dealer ID {dealer_id}\n")
-    
+    print(
+        f"You are entering sales data for {dealer_name} with Dealer ID {dealer_id}\n")   
     return dealer_name
+
 
 def get_sales_data():
     """
@@ -96,6 +100,7 @@ def get_sales_data():
 
     return sales_data
 
+
 def sales_data_validation(value):
     """
     Checks an integer has been entered and checks and
@@ -112,6 +117,7 @@ def sales_data_validation(value):
 
     return True
 
+
 def calculate_dealer_pay(sales_data, dealer_name):
     """
     Calculates how much to pay the dealer based on inputted sales data.
@@ -126,6 +132,7 @@ def calculate_dealer_pay(sales_data, dealer_name):
     print(f"You need to pay {dealer_name} {dealer_pay}\n")
 
     return dealer_pay
+
 
 def calculate_house_pay(sales_data):
     """
@@ -142,6 +149,7 @@ def calculate_house_pay(sales_data):
 
     return house_pay
 
+
 def update_pay_worksheet(dealer_id, dealer_name, dealer_pay, house_pay):
     """
     Adds calculations for dealer and house to pay worksheet for storage.
@@ -151,6 +159,7 @@ def update_pay_worksheet(dealer_id, dealer_name, dealer_pay, house_pay):
     worksheet_to_update = SHEET.worksheet('pay')
     worksheet_to_update.append_row(row_data)
     print(f"{row_data} successfully added to pay worksheet")
+
 
 def main():
     """
@@ -165,5 +174,3 @@ def main():
 
 print("Welcome to Pay Calculator\n")
 main()
-
-
