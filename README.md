@@ -152,7 +152,7 @@ I followed the following steps to deploy Pay Calculator to Code Institute's inst
 * Create a config var for PORT 8000 as requested by Code Institute in README.md and lessons
 * Add heroku/python buildpack
 * Add heroku/nodejs buildpack
-* In app deploy tab I deploy main branch from GitHub repository manually to check there are no build errors
+* In app deploy tab deploy main branch from GitHub repository manually to check there are no build errors
 * In app deploy deploy main branch to automatic once programme is complete
 
 The programme is live [here](https://pp3-pay-calculator.herokuapp.com/).
