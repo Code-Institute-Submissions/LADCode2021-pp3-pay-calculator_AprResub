@@ -10,13 +10,13 @@ Pay Calculator achieves the project goal by requesting the data in a command int
 
 # Planning
 
-I started out my planning the requirements for the Pay Calculator in a flow diagram using [Lucid Charts](https://www.lucidchart.com/pages/). This allowed me to fully scope what I needed the tool to do and was useful to refer back to, to ensure I was staying on track with the intended outputs for the project.
+I started out by planning the requirements for the Pay Calculator in a flow diagram using [Lucid Charts](https://www.lucidchart.com/pages/). This allowed me to fully scope what I needed the tool to do and was useful to refer back to, to ensure I was staying on track with the intended outputs for the project.
 
 Please see my original plan below:
 
 ![](docs/images/plan-flow-diagram.png)
 
-I largely stuck to the plan except I decided to update the worksheet all in one API call rather than on two separate calls to update sales as they were entered and then dealer and owner pay at the end once calculated. I read that it is best served to have as few API calls as possible in an application to keep loading/run-time as quick as possible.
+I largely stuck to the plan except I decided to update the worksheet all in one API call as the final task, rather than on two separate calls to updated sales first and then the pay calculations later. I read that it is best served to have as few API calls as possible in an application to keep loading/run-time as quick as possible.
 
 # How to use Pay Calculator
 
@@ -28,7 +28,7 @@ There are currently 4 imaginary dealers in the Google Sheet used for this projec
 2. Enter the sales total for that dealer into the command line, again taking note of the type of data the tool will accept.
 3. Press 'Run Programme' to restart the tool
 
-The outcome of a successful use of the tool will be a display of the total to pay to the dealer and the total to pay to the house (owner). The command line interface will also confirm data has been added to the Google worksheet.
+The outcome of a successful use of the tool will be the command interface showing the total to pay to the dealer and the total to pay to the house (owner). The command line interface will also confirm data has been added to the Google worksheet.
 
 # Features
 
@@ -44,14 +44,16 @@ Then there is the 'pay' tab which stores all the outputs from the calculator: 'D
 
 ![](docs/images/pay-tab.png)]
 
-### Command Line Programme Welcome Message and User Input for Dealer ID
+## Command Line Programme 
+
+### Welcome Message and User Input for Dealer ID
 
 When the programme runs in Heroku a welcome message, notes on what kind of data to enter and empty input ready to take Dealer ID are the first thing the user sees.
 
 
 ![](docs/images/welcome-screenshot.png)
 
-### Command Line Programme Data Validation on Dealer ID User Input
+### Data Validation on Dealer ID User Input
 
 Once the user enters a value into the command line there is some data validation to check that the input is an integer and that it matches a Dealer ID in the dealer worksheet.
 
@@ -61,19 +63,19 @@ If the data is invalid then an error message is printed to the terminal either f
 
 As you can see the function to request a Dealer ID has re-appeared below the error message. This is setup up to keep running until there is a correct input from the user.
 
-### Command Line Programme User Input for Sales Data
+### User Input for Sales Data
 
 Once a correct dealer ID is entered the Dealer ID function stops running; tells the user it's a valid ID; pulls in the name of dealer from the dealer_details dealer worksheet in the Google sheet and instead requests sales data input from the user.
 
 ![](docs/images/valid-dealer-id.png)
 
-### Command Line Programme Sales Data Validation
+### Sales Data Validation
 
-Once the user enters sales data into the input it validates whether the value entered is an integer or a float. If either of these validations are incorrect an error message is printed to the terminal and as with the Dealer ID input the sales data input food will continue to run until it passes validation. For example if the user enters text value by mistake:
+Once the user enters sales data into the input it validates whether the value entered is an integer or a float. If either of these validations are incorrect an error message is printed to the terminal and as with the Dealer ID input the sales data input function will continue to run until it passes validation. For example if the user enters text value by mistake:
 
 ![](docs/images/incorrect-sales-data.png)
 
-### Command Line Programme Calculating Dealer Pay, House Pay and Updating Worksheet
+### Calculating Dealer Pay, House Pay and Updating Worksheet
 
 Once the user enters correct sales data the Sales Data Input stops running and the programme uses the user input to: 
 
@@ -115,7 +117,7 @@ Solved bugs:
 
 * Float error 1:
 
-In my original function for getting sales data, I hadn't accounted for float values that might need to be entered as sales may not always be a integer. I was receiving errors such as:
+In my original function for getting sales data, I hadn't accounted for float values as sales - sales may not always be a integer. I was receiving errors such as:
 
 ![](docs/images/float-error.png)
 
@@ -125,7 +127,7 @@ To fix the issue I created a function to check and pass the value if it was a fl
 
 * Float error 2
 
-Once I allowed floats to be passed into the programme, I then had to account for the in the functions that calculate dealer and house pay. I did this by getting the function to run a different sum based on int() and float() methods depending on which value was passed. For example in calculating dealer pay, I used the following:
+Once I allowed floats to be passed into the programme, I then had to account for them in the functions that calculate dealer and house pay. I did this by getting the function to run a different sum based on int() and float() methods depending on which value was passed. For example in calculating dealer pay, I used the following:
 
 ![](docs/images/dealer-pay-ifs.png)
 
@@ -146,7 +148,7 @@ I followed the following steps to deploy Pay Calculator to Code Institute's inst
 * Created new Heroku app
 * Created a config var in app settings for credentials for my Google Sheet
 * Created a config var for PORT 8000 as requested by Code Institute in README.md and lessons
-* In app deploy tab I deployed main branch from my GitHub repository main branch manually to check there were no build errors
+* In app deploy tab I deployed main branch from my GitHub repository manually to check there were no build errors
 * In app deploy I deployed main branch to automatic once I completed the programme
 
 The programme is live [here](https://pp3-pay-calculator.herokuapp.com/).
@@ -155,7 +157,7 @@ The programme is live [here](https://pp3-pay-calculator.herokuapp.com/).
 
 * Code Institute for the Heroku deployment terminal
 * Code Institute for the instructions and SCOPE details to wire up Google Sheets and gspread
-*
+* Code Institute for various inspirations in functions as commented in function multiline strings in run.py
 
 
 
