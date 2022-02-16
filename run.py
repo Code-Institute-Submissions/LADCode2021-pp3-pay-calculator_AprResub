@@ -2,7 +2,7 @@ import gspread
 from google.oauth2.service_account import Credentials
 
 """
-Imports at the top, SCOPE and CREDS taken from source code of
+Imports at the top and SCOPE and CREDS taken from source code of
 love_sandwiches walkthrough project.
 """
 
@@ -24,7 +24,7 @@ def get_dealer_data():
     function in the Love Sandwich walkthrough project
 
     Get dealer id from the user.
-    Run a while loop to collect a valid string of data from the user
+    Run a while loop to collect a valid intger of data from the user
     via the terminal, which must match a dealer ID in the dealers worksheet.
     The loop will repeatedly request data, until it is valid.
     """
@@ -46,8 +46,11 @@ def get_dealer_data():
 def dealer_data_validation(value):
     
     """
-    Checks an integer has been entered and checks and
-    if the dealer ID exists in the Google Sheet.
+    Some minor detail such as ValueError as e taken from Code
+    Institute love sandwiches walkthrough project.
+
+    Check an integer has been entered and check if the dealer 
+    ID exists in the Google Sheet.
     """
     try:
         int(value)
@@ -64,7 +67,7 @@ def dealer_data_validation(value):
 
 def get_dealer_name(dealer_id):
     """
-    Gets dealer name stored in dealer worksheet and prints to terminal.
+    Get dealer name stored in dealer worksheet and print to terminal.
     """
     stored_dealer_id_col = SHEET.worksheet('dealer').col_values(1)
     stored_dealer_name_col = SHEET.worksheet('dealer').col_values(2)
@@ -83,8 +86,9 @@ def get_sales_data():
     function in the Love Sandwich walkthrough project
 
     Get sales data for dealer from the user.
-    Run a while loop to collect a valid string of data from the user
-    via the terminal, which must match a dealer ID in the dealers worksheet.
+    Run a while loop to collect a valid integer 
+    or float of data from the user via the terminal, 
+    which must match a dealer ID in the dealers worksheet.
     The loop will repeatedly request data, until it is valid.
     """
     while True:
@@ -103,8 +107,10 @@ def get_sales_data():
 
 def sales_data_validation(value):
     """
-    Checks an integer has been entered and checks and
-    if the dealer ID exists in the Google Sheet.
+    Some very minor detail such as ValueError as e taken from Code
+    Institute love sandwiches walkthrough project.
+
+    Check if an integer or float has been entered for sales data.
     """
     try:
         if float(value):
@@ -120,7 +126,7 @@ def sales_data_validation(value):
 
 def calculate_dealer_pay(sales_data, dealer_name):
     """
-    Calculates how much to pay the dealer based on inputted sales data.
+    Calculate how much to pay the dealer based on inputted sales data.
     """
     print("Calculating dealer pay...\n")
     
@@ -136,7 +142,7 @@ def calculate_dealer_pay(sales_data, dealer_name):
 
 def calculate_house_pay(sales_data):
     """
-    Calculates how much to pay the house based on sales data.
+    Calculate how much to pay the house based on sales data.
     """
     print("Calculating house pay...\n")
 
@@ -152,7 +158,7 @@ def calculate_house_pay(sales_data):
 
 def update_pay_worksheet(dealer_id, dealer_name, dealer_pay, house_pay):
     """
-    Adds calculations for dealer and house to pay worksheet for storage.
+    Add calculations for dealer and house to pay worksheet for storage.
     """
     row_data = [dealer_id, dealer_name, dealer_pay, house_pay]
     print(f"Updating pay worksheet with {row_data}...\n")

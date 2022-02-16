@@ -8,7 +8,7 @@ Pay Calculator achieves the project goal by requesting the data in a command int
 
 ![](docs/images/ismysiteresponsive-screenshot.png)
 
-## Planning
+# Planning
 
 I started out my planning the requirements for the Pay Calculator in a flow diagram using [Lucid Charts](https://www.lucidchart.com/pages/). This allowed me to fully scope what I needed the tool to do and was useful to refer back to, to ensure I was staying on track with the intended outputs for the project.
 
@@ -18,7 +18,7 @@ Please see my original plan below:
 
 I largely stuck to the plan except I decided to update the worksheet all in one API call rather than on two separate calls to update sales as they were entered and then dealer and owner pay at the end once calculated. I read that it is best served to have as few API calls as possible in an application to keep loading/run-time as quick as possible.
 
-## How to use Pay Calculator
+# How to use Pay Calculator
 
 There are currently 4 imaginary dealers in the Google Sheet used for this project. You will need a Dealer_ID from the picture below to make the tool work.
 
@@ -30,13 +30,13 @@ There are currently 4 imaginary dealers in the Google Sheet used for this projec
 
 The outcome of a successful use of the tool will be a display of the total to pay to the dealer and the total to pay to the house (owner). The command line interface will also confirm data has been added to the Google worksheet.
 
-## Features
+# Features
 
-### Existing Features
+## Existing Features
 
-#### Google Sheets
+### Google Sheets
 
-The data for this programme is stored in dealer_details Google sheet. This can be accessed as read-only [here](https://docs.google.com/spreadsheets/d/1ce3DIRFEajKR9P0evQ10GI1JoCKMAHC_XtExZa5ZjZQ/edit?usp=sharing). There are two tabs, 'dealer' which stores the Dealer_ID and corresponding Dealer_Name which is used in the programme to give a name to an ID for the user. This is so the user has a way to double check they are inputting data for the right person. I chose to do this with an integer ID over just using the name of the dealer as there are better data validation controls with integers. I felt there were too many risks to trying to validate a string. 
+The data for this programme is stored in dealer_details Google sheet. This can be accessed as read-only [here](https://docs.google.com/spreadsheets/d/1ce3DIRFEajKR9P0evQ10GI1JoCKMAHC_XtExZa5ZjZQ/edit?usp=sharing). There are two tabs, 'dealer' which stores the Dealer_ID and corresponding Dealer_Name which is used in the programme to give a name to an ID for the user. This is so the user has a way to double check they are inputting data for the right person. I chose to do this with an integer ID over just using the name of the dealer as there are better data validation controls with integers. I felt there were too many risks to trying to validate a string. To make this work work I had to import gspread library and Google auth which allowed me to interact directly with Google Sheets.
 
 ![](docs/images/dealer-tab.png)
 
@@ -44,36 +44,36 @@ Then there is the 'pay' tab which stores all the outputs from the calculator: 'D
 
 ![](docs/images/pay-tab.png)]
 
-#### Command Line Programme Welcome Message and User Input for Dealer ID
+### Command Line Programme Welcome Message and User Input for Dealer ID
 
 When the programme runs in Heroku a welcome message, notes on what kind of data to enter and empty input ready to take Dealer ID are the first thing the user sees.
 
 
 ![](docs/images/welcome-screenshot.png)
 
-#### Command Line Programme Data Validation on Dealer ID User Input
+### Command Line Programme Data Validation on Dealer ID User Input
 
 Once the user enters a value into the command line there is some data validation to check that the input is an integer and that it matches a Dealer ID in the dealer worksheet.
 
 If the data is invalid then an error message is printed to the terminal either for invalid integer or incorrect Dealer ID. For example, here is the error message that appears for incorrect Dealer ID:
 
-[](docs/images/incorrect-dealer-id.png)
+![](docs/images/incorrect-dealer-id.png)
 
 As you can see the function to request a Dealer ID has re-appeared below the error message. This is setup up to keep running until there is a correct input from the user.
 
-#### Command Line Programme User Input for Sales Data
+### Command Line Programme User Input for Sales Data
 
 Once a correct dealer ID is entered the Dealer ID function stops running; tells the user it's a valid ID; pulls in the name of dealer from the dealer_details dealer worksheet in the Google sheet and instead requests sales data input from the user.
 
-[](docs/images/valid-dealer-id.png)
+![](docs/images/valid-dealer-id.png)
 
-#### Command Line Programme Sales Data Validation
+### Command Line Programme Sales Data Validation
 
 Once the user enters sales data into the input it validates whether the value entered is an integer or a float. If either of these validations are incorrect an error message is printed to the terminal and as with the Dealer ID input the sales data input food will continue to run until it passes validation. For example if the user enters text value by mistake:
 
-[](docs/images/incorrect-sales-data.png)
+![](docs/images/incorrect-sales-data.png)
 
-#### Command Line Programme Calculating Dealer Pay, House Pay and Updating Worksheet
+### Command Line Programme Calculating Dealer Pay, House Pay and Updating Worksheet
 
 Once the user enters correct sales data the Sales Data Input stops running and the programme uses the user input to: 
 
@@ -87,21 +87,21 @@ Once the user enters correct sales data the Sales Data Input stops running and t
 * print a confirmation of what data was added to the spreadsheet
 * the function ends here
 
-[](docs/images/valid-sales-data.png)
+![](docs/images/valid-sales-data.png)
 
-### Future Features
+## Future Features
 
 * The ability to access a menu and choose to pull existing data or run the Pay Calculator
 * The ability to delete data from the pay worksheet
 * Add sales period to the pay worksheet to give more meaning to data inputted
 * The ability to enter more than one user ID and sales data at a time
 
-### Data Models
+# Data Models
 I decided to use Google Sheets as my data model rather than storing data in data model classes. I felt this was more realistic for my imagined purpose as the imagined user is not a programmer. There is possibility with future development that I could take data from the Google Sheet and store that in classes. I would use this especially to be able to develop the functionality for multiple Dealer ID's and sales inputs.
 
 I have used other objects as temporary data storage such as a dictionary to store the dealer name in a function. This dictionary is then used in the function to access dealer names across multiple functions.
 
-### Testing
+# Testing
 
 I have manually tested Pay Calculator in the following ways:
 
@@ -109,7 +109,7 @@ I have manually tested Pay Calculator in the following ways:
 * Inputted different types of incorrect data into the input fields, i.e. special characters, strings where there should have been integers, etc. And have confirmed no unexpected error messages.
 * Tested the programme in both my GitPod terminal and Code Institute instance of Heroku and the programme runs exactly as expected.
 
-### Bugs
+## Bugs
 
 Solved bugs:
 
@@ -117,19 +117,48 @@ Solved bugs:
 
 In my original function for getting sales data, I hadn't accounted for float values that might need to be entered as sales may not always be a integer. I was receiving errors such as:
 
-[](docs/images/float-error.png)
+![](docs/images/float-error.png)
 
 To fix the issue I created a function to check and pass the value if it was a float or an integer and pass an error if it is not:
 
-[](docs/images/sales-data-validation-function.png)
+![](docs/images/sales-data-validation-function.png)
 
 * Float error 2
 
-Once I allowed floats to be passed into the programme, I then had to account for the in the functions that calculate dealer and house pay. I did this by getting the function to run a different sum based on int() and float() methods depending on which value was passed. For example in calculating dealer pay, I used the follow:
+Once I allowed floats to be passed into the programme, I then had to account for the in the functions that calculate dealer and house pay. I did this by getting the function to run a different sum based on int() and float() methods depending on which value was passed. For example in calculating dealer pay, I used the following:
 
-[](docs/images/dealer-pay-ifs.png)
+![](docs/images/dealer-pay-ifs.png)
+
+## Remaining Bugs
 
 * No known bugs outstanding in programme
+
+## Validator Testing
+
+I validated the code in PEP8 and no errors were returned:
+
+# Deployment
+
+I followed the following steps to deploy Pay Calculator to Code Institute's instance of Heroku:
+
+* Update requirements.txt to include gspread library and Google Auth
+* Pushed requirements.txt to GutHub repository
+* Created new Heroku app
+* Created a config var in app settings for credentials for my Google Sheet
+* Created a config var for PORT 8000 as requested by Code Institute in README.md and lessons
+* In app deploy tab I deployed main branch from my GitHub repository main branch manually to check there were no build errors
+* In app deploy I deployed main branch to automatic once I completed the programme
+
+The programme is live [here](https://pp3-pay-calculator.herokuapp.com/).
+
+# Credits
+
+* Code Institute for the Heroku deployment terminal
+* Code Institute for the instructions and SCOPE details to wire up Google Sheets and gspread
+*
+
+
+
 
 
 
