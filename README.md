@@ -1,31 +1,34 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# PP3 - Pay Calculator
 
-Welcome LADCode2021,
+Pay Calculator is tool created for an imagined real-world scenario where an owner of a large barn rents space to various dealers. The owner of this land takes a 5% commission from all sales made by the dealers. The problem for the owner is they do not have a central till or payment system yet. So the sales for each dealer come in many different ways such as: scraps of paper or by text, etc. The owner has requested a simple command line programme that will allow them to quickly input sales data for each dealer, and then calculate how much the dealer should be paid and how much should go to the owner of the land.
 
-This is the Code Institute student template for deploying your third portfolio project, the Python command-line project. The last update to this file was: **August 17, 2021**
+Pay Calculator achieves the project goal by requesting the data in a command interface on a platform called Heroku, validates the data, calculates the pay for the dealer and the owner, displays it in real-time to the command interface and also then stores it in a Google Sheet for the owner to access historical inputs.
 
-## Reminders
+[The live project can be viewed here.](https://pp3-pay-calculator.herokuapp.com/)
 
-* Your code must be placed in the `run.py` file
-* Your dependencies must be placed in the `requirements.txt` file
-* Do not edit any of the other files or your code may not deploy properly
+![](docs/images/ismysiteresponsive-screenshot.png)
 
-## Creating the Heroku app
+## Planning
 
-When you create the app, you will need to add two buildpacks from the _Settings_ tab. The ordering is as follows:
+I started out my planning the requirements for the Pay Calculator in a flow diagram using [Lucid Charts](https://www.lucidchart.com/pages/). This allowed me to fully scope what I needed the tool to do and was useful to refer back to, to ensure I was staying on track with the intended outputs for the project.
 
-1. `heroku/python`
-2. `heroku/nodejs`
+Please see my original plan below:
 
-You must then create a _Config Var_ called `PORT`. Set this to `8000`
+![](docs/images/plan-flow-diagram.png)
 
-If you have credentials, such as in the Love Sandwiches project, you must create another _Config Var_ called `CREDS` and paste the JSON into the value field.
+I largely stuck to the plan except I decided to update the worksheet all in one API call rather than on two separate calls to update sales as they were entered and then dealer and owner pay at the end once calculated. I read that it is best served to have as few API calls as possible in an application to keep loading/run-time as quick as possible.
 
-Connect your GitHub repository and deploy as normal.
+## How to use Pay Calculator
 
-## Constraints
+There are currently 4 imaginary dealers in the Google Sheet used for this project. You will need a Dealer_ID from the picture below to make the tool work.
 
-The deployment terminal is set to 80 columns by 24 rows. That means that each line of text needs to be 80 characters or less otherwise it will be wrapped onto a second line.
+![](docs/images/dealer-screenshot.png)
 
------
-Happy coding!
+1. Enter your Dealer_ID into the command line prompt, taking note of type of data the tool will accept.
+2. Enter the sales total for that dealer into the command line, again taking note of the type of data the tool will accept.
+
+The outcome of a successful use of the tool will be a display of the total to pay to the dealer and the total to pay to the house (owner). The command line interface will also confirm data has been added to the Google worksheet.
+
+## Existing Features
+
+
