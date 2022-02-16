@@ -71,12 +71,14 @@ def get_dealer_name(dealer_id):
     """
     stored_dealer_id_col = SHEET.worksheet('dealer').col_values(1)
     stored_dealer_name_col = SHEET.worksheet('dealer').col_values(2)
-    stored_dealer_combine_list = zip(stored_dealer_id_col, stored_dealer_name_col)
-    stored_dealer = dict(stored_dealer_combine_list)
+    stored_dealer_list = zip(stored_dealer_id_col, stored_dealer_name_col)
+    stored_dealer = dict(stored_dealer_list)
 
     dealer_name = stored_dealer.get(dealer_id)
     print(
-        f"You are entering sales data for {dealer_name} with Dealer ID {dealer_id}\n")   
+        f"You are entering sales data for {dealer_name}"
+        + f" with Dealer ID {dealer_id}\n"
+        )   
     return dealer_name
 
 
@@ -131,7 +133,9 @@ def calculate_dealer_pay(sales_data, dealer_name):
     print("Calculating dealer pay...\n")
     
     if float(sales_data):
-        dealer_pay = round(float(sales_data) - ((float(sales_data) * 5) / 100), 2)
+        dealer_pay = round(
+            float(sales_data) - ((float(sales_data) * 5) / 100), 2
+                )
     elif int(sales_data):
         dealer_pay = int(sales_data) - ((int(sales_data) * 5) / 100)
     
