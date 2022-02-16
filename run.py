@@ -34,10 +34,10 @@ def get_dealer_data():
         print("This must match a Dealer ID in the 'dealer' tab")
         print("Example: 1\n")
 
-        dealer_id = input("Enter Dealer ID here:\n")
+        dealer_id = input("Enter Dealer ID here to start:\n")
 
         if dealer_data_validation(dealer_id):
-            print("Data is valid!")
+            print("Valid dealer ID.\n")
             break
 
     return dealer_id
@@ -61,7 +61,7 @@ def dealer_data_validation(value):
 
 def get_dealer_name(dealer_id):
     """
-    Gets dealer name stored in dealer worksheet.
+    Gets dealer name stored in dealer worksheet and prints to terminal.
     """
     stored_dealer_id_col = SHEET.worksheet('dealer').col_values(1)
     stored_dealer_name_col = SHEET.worksheet('dealer').col_values(2)
@@ -88,10 +88,10 @@ def get_sales_data():
         print("This must be entered as whole number or to two decimal places")
         print("Example: 100 or 10.50\n")
 
-        sales_data = input("Enter sales data for here:\n")
+        sales_data = input("Enter sales data here:\n")
 
         if sales_data_validation(sales_data):
-            print("Data is valid")
+            print("Valid sales data.\n")
             break
 
     return sales_data
@@ -112,41 +112,45 @@ def sales_data_validation(value):
 
     return True
 
-def calculate_dealer_pay(sales_data):
+def calculate_dealer_pay(sales_data, dealer_name):
     """
-    Calculates how much to pay the dealer and prints to terminal.
+    Calculates how much to pay the dealer based on inputted sales data.
     """
+    print("Calculating dealer pay...\n")
+    
     if float(sales_data):
         dealer_pay = round(float(sales_data) - ((float(sales_data) * 5) / 100), 2)
     elif int(sales_data):
         dealer_pay = int(sales_data) - ((int(sales_data) * 5) / 100)
-        
-    print(dealer_pay)
+    
+    print(f"You need to pay {dealer_name} {dealer_pay}\n")
 
     return dealer_pay
 
 def calculate_house_pay(sales_data):
     """
-    Calculates how much to pay the house and prints to terminal.
+    Calculates how much to pay the house based on sales data.
     """
+    print("Calculating house pay...\n")
+
     if float(sales_data):
         house_pay = round(((float(sales_data) * 5) / 100), 2)
     elif int(sales_data):
         house_pay = ((int(sales_data) * 5) / 100)
-
     
+    print(f"You need to pay the house {house_pay}\n")
 
     return house_pay
 
 def update_pay_worksheet(dealer_id, dealer_name, dealer_pay, house_pay):
     """
-    Adds calculations for dealer and house to pay worksheet for storage
+    Adds calculations for dealer and house to pay worksheet for storage.
     """
     row_data = [dealer_id, dealer_name, dealer_pay, house_pay]
+    print(f"Updating pay worksheet with {row_data}...\n")
     worksheet_to_update = SHEET.worksheet('pay')
     worksheet_to_update.append_row(row_data)
-    print(row_data)
-
+    print(f"{row_data} successfully added to pay worksheet")
 
 def main():
     """
@@ -155,10 +159,11 @@ def main():
     dealer_id = get_dealer_data()
     dealer_name = get_dealer_name(dealer_id)
     sales_data = get_sales_data()
-    dealer_pay = calculate_dealer_pay(sales_data)
+    dealer_pay = calculate_dealer_pay(sales_data, dealer_name)
     house_pay = calculate_house_pay(sales_data)
     update_pay_worksheet(dealer_id, dealer_name, dealer_pay, house_pay)
 
+print("Welcome to Pay Calculator\n")
 main()
 
 
