@@ -29,6 +29,13 @@ There are currently 4 imaginary dealers in the Google Sheet used for this projec
 
 The outcome of a successful use of the tool will be a display of the total to pay to the dealer and the total to pay to the house (owner). The command line interface will also confirm data has been added to the Google worksheet.
 
-## Existing Features
+## Features
+
+### Existing Features
+
+* Welcome message, notes on what kind of data to enter and empty input ready to take Dealer ID
+
+
+
 
 
