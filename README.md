@@ -139,17 +139,21 @@ Once I allowed floats to be passed into the programme, I then had to account for
 
 I validated the code in PEP8 and no errors were returned:
 
+![](docs/images/pep8-results.png)
+
 # Deployment
 
 I followed the following steps to deploy Pay Calculator to Code Institute's instance of Heroku:
 
 * Update requirements.txt to include gspread library and Google Auth
-* Pushed requirements.txt to GutHub repository
-* Created new Heroku app
-* Created a config var in app settings for credentials for my Google Sheet
-* Created a config var for PORT 8000 as requested by Code Institute in README.md and lessons
-* In app deploy tab I deployed main branch from my GitHub repository manually to check there were no build errors
-* In app deploy I deployed main branch to automatic once I completed the programme
+* Push requirements.txt to GutHub repository
+* Create new Heroku app
+* Create a config var in app settings for credentials for my Google Sheet
+* Create a config var for PORT 8000 as requested by Code Institute in README.md and lessons
+* Add heroku/python buildpack
+* Add heroku/nodejs buildpack
+* In app deploy tab I deploy main branch from GitHub repository manually to check there are no build errors
+* In app deploy deploy main branch to automatic once programme is complete
 
 The programme is live [here](https://pp3-pay-calculator.herokuapp.com/).
 
