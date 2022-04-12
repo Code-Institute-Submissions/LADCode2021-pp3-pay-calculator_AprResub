@@ -137,7 +137,8 @@ def sales_data_validation(value):
         if value > 0:
             pass
     except ValueError as e:
-        print(f"{value} is no greater than 0. Your entry value must be greater than 0")
+            print(f"{value} is no greater than 0. Your entry value must be greater than 0")
+            return False
     
     return True
 
