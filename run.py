@@ -3,6 +3,9 @@ from google.oauth2.service_account import Credentials
 
 from datetime import date
 
+import pandas as pd
+
+
 """
 Imports at the top and SCOPE and CREDS taken from source code of
 love_sandwiches walkthrough project.
@@ -31,26 +34,43 @@ def get_dealer_data():
     via the terminal, which must match a dealer ID in the list provided.
     The loop will repeatedly request data, until it is valid.
     """
-    while True:
 
-        print("Please select a dealer ID from the list below (dealer ID is the number to the left of the name):\n")
+    print("Would you like to:\n \nA. View previous sales data for a dealer?\n \nB. Enter new sales data for a dealer?\n")
 
-        all_dealers = SHEET.worksheet('dealer').get_all_values()[1:]
+    user_choice = input("\nEnter 'a' or 'b'\n")
 
-        for d in all_dealers:
-            print(*d)
+    print("\nPlease select a dealer ID from the list below (dealer ID is the number to the left of the name):\n")
 
-        print("\nThis must match a Dealer ID in the list above")
-        print("Example: 1\n")
-        print("\nEnter it here:\n")
+    all_dealers = SHEET.worksheet('dealer').get_all_values()[1:]
 
-        dealer_id = input("Enter Dealer ID here to start:\n")
+    for dealer in all_dealers:
+        print(*dealer)
 
-        if dealer_data_validation(dealer_id):
-            print("Valid dealer ID.\n")
-            break
+    print("\nThis must match a Dealer ID in the list above")
+    print("Example: 1\n")
 
-    return dealer_id
+    dealer_id = input("Enter Dealer ID here to start:\n")
+
+    if user_choice == "b":
+        while True:
+            
+            if dealer_data_validation(dealer_id):
+                print("Valid dealer ID.\n")
+                break
+
+        return dealer_id
+    
+    elif user_choice == "a":
+
+        while True:
+            dataframe = pd.DataFrame(SHEET.worksheet('pay').get_all_records())
+            pd.set_option('display.max_columns', None)
+            
+            dealer_pay_data = dataframe.loc[dataframe['Dealer_ID'] == int(dealer_id)]
+            
+            print(f"\n{dealer_pay_data.to_string(index=False)}")
+
+            main()
 
   
 def dealer_data_validation(value):
@@ -213,6 +233,10 @@ def main():
     """
     Run all program functions.
     """
+
+    print("\nWelcome to Pay Calculator\n")
+
+
     dealer_id = get_dealer_data()
     dealer_name = get_dealer_name(dealer_id)
     sales_data = get_sales_data()
@@ -222,8 +246,6 @@ def main():
     update_pay_worksheet(dealer_id, dealer_name, dealer_pay, house_pay, date_entered)
     restart_calculator()
 
-
-print("Welcome to Pay Calculator\n")
 
 main()
 
