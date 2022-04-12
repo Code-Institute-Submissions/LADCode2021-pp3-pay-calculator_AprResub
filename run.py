@@ -1,6 +1,8 @@
 import gspread
 from google.oauth2.service_account import Credentials
 
+from datetime import date
+
 """
 Imports at the top and SCOPE and CREDS taken from source code of
 love_sandwiches walkthrough project.
@@ -67,7 +69,7 @@ def dealer_data_validation(value):
                 f"{value} not in dealer worksheet. Please enter valid dealer"
             )
     except ValueError as e:
-        print(f"Invalid data: {e}, please try again.\n")
+        print(f"{value} is not a valid data input, please try again.\n")
         return False
 
     return True
@@ -130,15 +132,6 @@ def sales_data_validation(value):
     except ValueError as e:
         print(f"{value} is invalid, please check your input and try again.\n")
         return False
-
-    return True
-
-    try:
-        if value > 0:
-            pass
-    except ValueError as e:
-            print(f"{value} is no greater than 0. Your entry value must be greater than 0")
-            return False
     
     return True
 
@@ -179,17 +172,28 @@ def calculate_house_pay(sales_data):
     print(f"You need to pay the house {house_pay}\n")
 
     return house_pay
+    
+
+def date_generator():
+    """
+    Generated today's today to be used when storing sales data
+    """
+    today = date.today()
+    date_entered = today.strftime("%d/%m/%Y")
+
+    return date_entered
 
 
-def update_pay_worksheet(dealer_id, dealer_name, dealer_pay, house_pay):
+def update_pay_worksheet(dealer_id, dealer_name, dealer_pay, house_pay, date_entered):
     """
     Add calculations for dealer and house to pay worksheet for storage.
     """
-    row_data = [dealer_id, dealer_name, dealer_pay, house_pay]
+    row_data = [dealer_id, dealer_name, dealer_pay, house_pay, date_entered]
     print(f"Updating pay worksheet with {row_data}...\n")
     worksheet_to_update = SHEET.worksheet('pay')
     worksheet_to_update.append_row(row_data)
     print(f"{row_data} successfully added to pay worksheet")
+
 
 def restart_calculator():
 
@@ -204,6 +208,7 @@ def restart_calculator():
     else:
         exit()
 
+
 def main():
     """
     Run all program functions.
@@ -213,7 +218,8 @@ def main():
     sales_data = get_sales_data()
     dealer_pay = calculate_dealer_pay(sales_data, dealer_name)
     house_pay = calculate_house_pay(sales_data)
-    update_pay_worksheet(dealer_id, dealer_name, dealer_pay, house_pay)
+    date_entered = date_generator()
+    update_pay_worksheet(dealer_id, dealer_name, dealer_pay, house_pay, date_entered)
     restart_calculator()
 
 
