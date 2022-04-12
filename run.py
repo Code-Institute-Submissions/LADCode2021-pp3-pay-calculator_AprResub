@@ -24,15 +24,23 @@ def get_dealer_data():
     function in the Love Sandwich walkthrough project
 
     Get dealer id from the user.
+    Get dealer id and names from Google Sheet and display to user.
     Run a while loop to collect a valid intger of data from the user
-    via the terminal, which must match a dealer ID in the dealers worksheet.
+    via the terminal, which must match a dealer ID in the list provided.
     The loop will repeatedly request data, until it is valid.
     """
     while True:
 
-        print("Please enter Dealer ID\n")
-        print("This must match a Dealer ID in the 'dealer' tab")
+        print("Please select a dealer ID from the list below (dealer ID is the number to the left of the name):\n")
+
+        all_dealers = SHEET.worksheet('dealer').get_all_values()[1:]
+
+        for d in all_dealers:
+            print(*d)
+
+        print("\nThis must match a Dealer ID in the list above")
         print("Example: 1\n")
+        print("\nEnter it here:\n")
 
         dealer_id = input("Enter Dealer ID here to start:\n")
 
