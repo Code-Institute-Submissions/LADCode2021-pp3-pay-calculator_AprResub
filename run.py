@@ -128,9 +128,17 @@ def sales_data_validation(value):
         elif int(value):
             pass
     except ValueError as e:
-        print(f"Invalid data: {e}, please try again.\n")
+        print(f"{value} is invalid, please check your input and try again.\n")
         return False
 
+    return True
+
+    try:
+        if value > 0:
+            pass
+    except ValueError as e:
+        print(f"{value} is no greater than 0. Your entry value must be greater than 0")
+    
     return True
 
 
