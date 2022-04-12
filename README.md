@@ -20,13 +20,11 @@ I largely stuck to the plan except I decided to update the worksheet all in one 
 
 # How to use Pay Calculator
 
-There are currently 4 imaginary dealers in the Google Sheet used for this project. You will need a Dealer_ID from the picture below to make the tool work.
+There are currently 4 imaginary dealers in the Google Sheet used for this project. The Pay Calculator gets these ID's and names from the Google Sheet when the programme starts
 
-![](docs/images/dealer-screenshot.png)
-
-1. Enter your Dealer_ID into the command line prompt, taking note of type of data the tool will accept.
+1. Enter a Dealer_ID from the list provided into the command line prompt, taking note of type of data the tool will accept.
 2. Enter the sales total for that dealer into the command line, again taking note of the type of data the tool will accept.
-3. Press 'Run Programme' to restart the tool
+3. Enter 'yes' to restart the calculator or 'no' to exit the programme
 
 The outcome of a successful use of the tool will be the command interface showing the total to pay to the dealer and the total to pay to the house (owner). The command line interface will also confirm data has been added to the Google worksheet.
 
