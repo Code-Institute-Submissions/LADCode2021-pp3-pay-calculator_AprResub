@@ -131,6 +131,8 @@ def calculate_dealer_pay(sales_data, dealer_name):
     Calculate how much to pay the dealer based on inputted sales data.
     """
     print("Calculating dealer pay...\n")
+
+    dealer_pay = 0
     
     if float(sales_data):
         dealer_pay = round(
@@ -149,6 +151,8 @@ def calculate_house_pay(sales_data):
     Calculate how much to pay the house based on sales data.
     """
     print("Calculating house pay...\n")
+
+    house_pay = 0
 
     if float(sales_data):
         house_pay = round(((float(sales_data) * 5) / 100), 2)
@@ -170,6 +174,18 @@ def update_pay_worksheet(dealer_id, dealer_name, dealer_pay, house_pay):
     worksheet_to_update.append_row(row_data)
     print(f"{row_data} successfully added to pay worksheet")
 
+def restart_calculator():
+
+    """
+    Asks user if they would like to restart programme
+    """
+    restart = input("Do you wish to enter further sales data? Enter 'yes' or 'no'\n")
+
+    if restart == "yes":
+        print("Restarting calculator...\n")
+        main()
+    else:
+        exit()
 
 def main():
     """
@@ -181,6 +197,11 @@ def main():
     dealer_pay = calculate_dealer_pay(sales_data, dealer_name)
     house_pay = calculate_house_pay(sales_data)
     update_pay_worksheet(dealer_id, dealer_name, dealer_pay, house_pay)
+    restart_calculator()
+
 
 print("Welcome to Pay Calculator\n")
+
 main()
+
+
