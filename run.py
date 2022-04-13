@@ -171,7 +171,7 @@ def calculate_dealer_pay(sales_data, dealer_name):
     elif int(sales_data):
         dealer_pay = int(sales_data) - ((int(sales_data) * 5) / 100)
     
-    print(f"You need to pay {dealer_name} {dealer_pay}\n")
+    print(f"You need to pay {dealer_name} £{dealer_pay}\n")
 
     return dealer_pay
 
@@ -189,7 +189,7 @@ def calculate_house_pay(sales_data):
     elif int(sales_data):
         house_pay = ((int(sales_data) * 5) / 100)
     
-    print(f"You need to pay the house {house_pay}\n")
+    print(f"You need to pay the house £{house_pay}\n")
 
     return house_pay
     
@@ -231,11 +231,10 @@ def restart_calculator():
 
 def main():
     """
-    Run all program functions.
+    Run all program functions and welcome print statements.
     """
 
     print("\nWelcome to Pay Calculator\n")
-
 
     dealer_id = get_dealer_data()
     dealer_name = get_dealer_name(dealer_id)
