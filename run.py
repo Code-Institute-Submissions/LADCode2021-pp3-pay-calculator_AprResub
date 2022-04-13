@@ -22,18 +22,10 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('dealer_details')
 
-
-def get_dealer_data():
+def get_user_choice():
     """
-    Some inspiration for this function is taken from get_sales_data()
-    function in the Love Sandwich walkthrough project
-    Get dealer id from the user.
-    Get dealer id and names from Google Sheet and display to user.
-    Run a while loop to collect a valid intger of data from the user
-    via the terminal, which must match a dealer ID in the list provided.
-    The loop will repeatedly request data, until it is valid.
+    Starts programme by taking users choice via input
     """
-
     print("\nWelcome to Pay Calculator\n")
 
     print("Would you like to:\n \nA. View previous sales data for a dealer?\n \nB. Enter new sales data for a dealer?\n")
@@ -50,25 +42,30 @@ def get_dealer_data():
     print("\nThis must match a Dealer ID in the list above")
     print("Example: 1\n")
 
-    dealer_id = input("Enter Dealer ID here to start:\n")
+    return user_choice
 
-    if user_choice == "b":
-        while True:
-            
-            if dealer_data_validation(dealer_id):
-                print("Valid dealer ID.\n")
-                break
-
-        return dealer_id
     
-    elif user_choice == "a":
-        while True:
-            
-            if dealer_data_validation(dealer_id):
-                print("Valid dealer ID.\n")
-                break
 
-        get_previous_sales_data(dealer_id)
+
+def get_dealer_id():
+    """
+    Some inspiration for this function is taken from get_sales_data()
+    function in the Love Sandwich walkthrough project
+    Get dealer id from the user.
+    Get dealer id and names from Google Sheet and display to user.
+    Run a while loop to collect a valid intger of data from the user
+    via the terminal, which must match a dealer ID in the list provided.
+    The loop will repeatedly request data, until it is valid.
+    """
+
+    dealer_id = input("Enter Dealer ID here to start:\n")
+    
+    while True:
+        if dealer_data_validation(dealer_id):
+            print("Valid dealer ID.\n")
+            break
+
+    return dealer_id
 
 
 def get_previous_sales_data(dealer_id):
@@ -225,15 +222,18 @@ def main():
     """
     Run all program functions.
     """
-
-    dealer_id = get_dealer_data()
-    dealer_name = get_dealer_name(dealer_id)
-    sales_data = get_sales_data()
-    dealer_pay = calculate_dealer_pay(sales_data, dealer_name)
-    house_pay = calculate_house_pay(sales_data)
-    date_entered = date_generator()
-    update_pay_worksheet(dealer_id, dealer_name, dealer_pay, house_pay, date_entered)
-    main()
+    user_choice = get_user_choice()
+    dealer_id = get_dealer_id()
+    if user_choice == 'b':
+        dealer_name = get_dealer_name(dealer_id)
+        sales_data = get_sales_data()
+        dealer_pay = calculate_dealer_pay(sales_data, dealer_name)
+        house_pay = calculate_house_pay(sales_data)
+        date_entered = date_generator()
+        update_pay_worksheet(dealer_id, dealer_name, dealer_pay, house_pay, date_entered)
+        exit()
+    elif user_choice == 'a':
+        get_previous_sales_data(dealer_id)
 
 
 main()
