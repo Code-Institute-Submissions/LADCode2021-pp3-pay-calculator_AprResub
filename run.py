@@ -30,8 +30,12 @@ def get_user_choice():
     print("\nWelcome to Pay Calculator\n")
 
     print("Would you like to:\n \nA. View previous sales data for a dealer?\n \nB. Enter new sales data for a dealer?\n")
-
-    user_choice = input("\nEnter 'a' or 'b'\n")
+    
+    while True:
+        user_choice = input("\nEnter 'a' or 'b'\n")
+        if user_choice_validation(user_choice):
+            print("Valid choice.\n")
+            break
 
     print("\nPlease select a dealer ID from the list below (dealer ID is the number to the left of the name):\n")
 
@@ -46,6 +50,25 @@ def get_user_choice():
     return user_choice
 
 
+def user_choice_validation(value):
+    """
+    Some minor detail such as ValueError as e taken from Code
+    Institute love sandwiches walkthrough project.
+    Check an integer has been entered and check if the dealer 
+    ID exists in the Google Sheet.
+    """
+    try:
+        if value != 'a' and value != 'b':
+            raise ValueError(
+                f"{value} not in dealer worksheet. Please enter valid dealer"
+            )
+    except ValueError as e:
+        print(f"{value} is not a valid data input, please try again.\n")
+        return False
+
+    return True
+
+
 def get_dealer_id():
     """
     Some inspiration for this function is taken from get_sales_data()
@@ -56,26 +79,15 @@ def get_dealer_id():
     via the terminal, which must match a dealer ID in the list provided.
     The loop will repeatedly request data, until it is valid.
     """
-    
+
     while True:
+        #input validated by dealer_data_validation()
         dealer_id = input("Enter Dealer ID here to start:\n")
         if dealer_data_validation(dealer_id):
             print("Valid dealer ID.\n")
             break
 
     return dealer_id
-
-
-def get_previous_sales_data(dealer_id):
-    """
-    Gets previous dealer data based on user inputted ID
-    """
-    dealer_id = int(dealer_id)
-    dataframe = pd.DataFrame(SHEET.worksheet('pay').get_all_records())
-    pd.set_option('display.max_columns', None)
-    dealer_pay_data = dataframe.loc[dataframe['Dealer_ID'] == dealer_id]
-    print(f"\n{dealer_pay_data.to_string(index=False)}")
-
     
 def dealer_data_validation(value):
     
@@ -96,6 +108,17 @@ def dealer_data_validation(value):
         return False
 
     return True
+
+
+def get_previous_sales_data(dealer_id):
+    """
+    Gets previous dealer data based on user inputted ID
+    """
+    dealer_id = int(dealer_id)
+    dataframe = pd.DataFrame(SHEET.worksheet('pay').get_all_records())
+    pd.set_option('display.max_columns', None)
+    dealer_pay_data = dataframe.loc[dataframe['Dealer_ID'] == dealer_id]
+    print(f"\n{dealer_pay_data.to_string(index=False)}")
 
 
 def get_dealer_name(dealer_id):
@@ -130,6 +153,7 @@ def get_sales_data():
         print("This must be entered as whole number or to two decimal places")
         print("Example: 100 or 10.50\n")
 
+        #input validated by sales_data_validation()
         sales_data = input("Enter sales data here:\n")
 
         if sales_data_validation(sales_data):
@@ -146,10 +170,10 @@ def sales_data_validation(value):
     Check if an integer or float has been entered for sales data.
     """
     try:
-        if float(value):
-            pass
-        elif int(value):
-            pass
+        if not float(value) and not int(value):
+            raise ValueError(
+                f"{value} is invalid. Please enter whole number or decimal"
+            )
     except ValueError as e:
         print(f"{value} is invalid, please check your input and try again.\n")
         return False
