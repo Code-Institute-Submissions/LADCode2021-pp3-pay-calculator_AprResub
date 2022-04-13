@@ -22,6 +22,7 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('dealer_details')
 
+
 def get_user_choice():
     """
     Starts programme by taking users choice via input
@@ -44,8 +45,6 @@ def get_user_choice():
 
     return user_choice
 
-    
-
 
 def get_dealer_id():
     """
@@ -57,10 +56,9 @@ def get_dealer_id():
     via the terminal, which must match a dealer ID in the list provided.
     The loop will repeatedly request data, until it is valid.
     """
-
-    dealer_id = input("Enter Dealer ID here to start:\n")
     
     while True:
+        dealer_id = input("Enter Dealer ID here to start:\n")
         if dealer_data_validation(dealer_id):
             print("Valid dealer ID.\n")
             break
