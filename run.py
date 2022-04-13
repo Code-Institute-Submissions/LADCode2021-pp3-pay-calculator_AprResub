@@ -118,7 +118,10 @@ def get_previous_sales_data(dealer_id):
     dataframe = pd.DataFrame(SHEET.worksheet('pay').get_all_records())
     pd.set_option('display.max_columns', None)
     dealer_pay_data = dataframe.loc[dataframe['Dealer_ID'] == dealer_id]
-    print(f"\n{dealer_pay_data.to_string(index=False)}")
+    if not dealer_pay_data.empty:
+        print(f"\n{dealer_pay_data.to_string(index=False)}")
+    else:
+        print("No previous pay data for this dealer")
 
 
 def get_dealer_name(dealer_id):
