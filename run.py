@@ -27,13 +27,14 @@ def get_dealer_data():
     """
     Some inspiration for this function is taken from get_sales_data()
     function in the Love Sandwich walkthrough project
-
     Get dealer id from the user.
     Get dealer id and names from Google Sheet and display to user.
     Run a while loop to collect a valid intger of data from the user
     via the terminal, which must match a dealer ID in the list provided.
     The loop will repeatedly request data, until it is valid.
     """
+
+    print("\nWelcome to Pay Calculator\n")
 
     print("Would you like to:\n \nA. View previous sales data for a dealer?\n \nB. Enter new sales data for a dealer?\n")
 
@@ -61,24 +62,31 @@ def get_dealer_data():
         return dealer_id
     
     elif user_choice == "a":
-
         while True:
-            dataframe = pd.DataFrame(SHEET.worksheet('pay').get_all_records())
-            pd.set_option('display.max_columns', None)
             
-            dealer_pay_data = dataframe.loc[dataframe['Dealer_ID'] == int(dealer_id)]
-            
-            print(f"\n{dealer_pay_data.to_string(index=False)}")
+            if dealer_data_validation(dealer_id):
+                print("Valid dealer ID.\n")
+                break
 
-            main()
+        get_previous_sales_data(dealer_id)
 
-  
+
+def get_previous_sales_data(dealer_id):
+    """
+    Gets previous dealer data based on user inputted ID
+    """
+    dealer_id = int(dealer_id)
+    dataframe = pd.DataFrame(SHEET.worksheet('pay').get_all_records())
+    pd.set_option('display.max_columns', None)
+    dealer_pay_data = dataframe.loc[dataframe['Dealer_ID'] == dealer_id]
+    print(f"\n{dealer_pay_data.to_string(index=False)}")
+
+    
 def dealer_data_validation(value):
     
     """
     Some minor detail such as ValueError as e taken from Code
     Institute love sandwiches walkthrough project.
-
     Check an integer has been entered and check if the dealer 
     ID exists in the Google Sheet.
     """
@@ -116,7 +124,6 @@ def get_sales_data():
     """
     Some inspiration for this function is taken from get_sales_data()
     function in the Love Sandwich walkthrough project
-
     Get sales data for dealer from the user.
     Run a while loop to collect a valid integer 
     or float of data from the user via the terminal, 
@@ -141,7 +148,6 @@ def sales_data_validation(value):
     """
     Some very minor detail such as ValueError as e taken from Code
     Institute love sandwiches walkthrough project.
-
     Check if an integer or float has been entered for sales data.
     """
     try:
@@ -215,26 +221,10 @@ def update_pay_worksheet(dealer_id, dealer_name, dealer_pay, house_pay, date_ent
     print(f"{row_data} successfully added to pay worksheet")
 
 
-def restart_calculator():
-
-    """
-    Asks user if they would like to restart programme
-    """
-    restart = input("Do you wish to enter further sales data? Enter 'yes' or 'no'\n")
-
-    if restart == "yes":
-        print("Restarting calculator...\n")
-        main()
-    else:
-        exit()
-
-
 def main():
     """
-    Run all program functions and welcome print statements.
+    Run all program functions.
     """
-
-    print("\nWelcome to Pay Calculator\n")
 
     dealer_id = get_dealer_data()
     dealer_name = get_dealer_name(dealer_id)
@@ -243,9 +233,7 @@ def main():
     house_pay = calculate_house_pay(sales_data)
     date_entered = date_generator()
     update_pay_worksheet(dealer_id, dealer_name, dealer_pay, house_pay, date_entered)
-    restart_calculator()
+    main()
 
 
 main()
-
-
