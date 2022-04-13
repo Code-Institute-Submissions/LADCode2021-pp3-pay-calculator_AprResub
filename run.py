@@ -262,9 +262,10 @@ def main():
         house_pay = calculate_house_pay(sales_data)
         date_entered = date_generator()
         update_pay_worksheet(dealer_id, dealer_name, dealer_pay, house_pay, date_entered)
-        exit()
+        main()
     elif user_choice == 'a':
         get_previous_sales_data(dealer_id)
+        main()
 
 
 main()
