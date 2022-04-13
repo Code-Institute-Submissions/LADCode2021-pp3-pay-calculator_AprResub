@@ -25,13 +25,17 @@ SHEET = GSPREAD_CLIENT.open('dealer_details')
 
 def get_user_choice():
     """
-    Starts programme by taking users choice via input
+    Get user choice via input to either view previous pay data
+    or add new sales data.
+    Runs while loop until valid input is made.
+    Contains opening print statements to introduce calculator.
     """
     print("\nWelcome to Pay Calculator\n")
 
     print("Would you like to:\n \nA. View previous sales data for a dealer?\n \nB. Enter new sales data for a dealer?\n")
     
     while True:
+        # input validated by user_choice_validation()
         user_choice = input("\nEnter 'a' or 'b'\n")
         if user_choice_validation(user_choice):
             print("Valid choice.\n")
@@ -54,8 +58,8 @@ def user_choice_validation(value):
     """
     Some minor detail such as ValueError as e taken from Code
     Institute love sandwiches walkthrough project.
-    Check an integer has been entered and check if the dealer 
-    ID exists in the Google Sheet.
+    Validates if the user has entered 'a' or 'b'.
+    Raises exceptions if anything else is inputted.
     """
     try:
         if value != 'a' and value != 'b':
@@ -81,15 +85,16 @@ def get_dealer_id():
     """
 
     while True:
-        #input validated by dealer_data_validation()
+        # input validated by dealer_id_validation()
         dealer_id = input("Enter Dealer ID here to start:\n")
-        if dealer_data_validation(dealer_id):
+        if dealer_id_validation(dealer_id):
             print("Valid dealer ID.\n")
             break
 
     return dealer_id
+
     
-def dealer_data_validation(value):
+def dealer_id_validation(value):
     
     """
     Some minor detail such as ValueError as e taken from Code
@@ -119,7 +124,8 @@ def get_previous_sales_data(dealer_id):
     pd.set_option('display.max_columns', None)
     dealer_pay_data = dataframe.loc[dataframe['Dealer_ID'] == dealer_id]
     if not dealer_pay_data.empty:
-        print(f"\n{dealer_pay_data.to_string(index=False)}")
+        print("\nPlease see dealer data below:\n")
+        print(f"\n{dealer_pay_data.to_string(index=False)}\n")
     else:
         print("No previous pay data for this dealer")
 
@@ -156,7 +162,7 @@ def get_sales_data():
         print("This must be entered as whole number or to two decimal places")
         print("Example: 100 or 10.50\n")
 
-        #input validated by sales_data_validation()
+        # input validated by sales_data_validation()
         sales_data = input("Enter sales data here:\n")
 
         if sales_data_validation(sales_data):
