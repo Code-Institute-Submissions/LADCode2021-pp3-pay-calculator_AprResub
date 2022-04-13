@@ -243,10 +243,12 @@ def update_pay_worksheet(dealer_id, dealer_name, dealer_pay, house_pay, date_ent
     Add calculations for dealer and house to pay worksheet for storage.
     """
     row_data = [dealer_id, dealer_name, dealer_pay, house_pay, date_entered]
-    print(f"Updating pay worksheet with {row_data}...\n")
+    print("Updating pay worksheet with:\n")
+    for row in row_data:
+        print(row, end=" ")
     worksheet_to_update = SHEET.worksheet('pay')
     worksheet_to_update.append_row(row_data)
-    print(f"{row_data} successfully added to pay worksheet")
+    print("\nSuccessfully added to pay worksheet\n")
 
 
 def main():
