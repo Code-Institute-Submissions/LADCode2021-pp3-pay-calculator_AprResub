@@ -1,8 +1,8 @@
 # PP3 - Pay Calculator
 
-Pay Calculator is tool created for an imagined real-world scenario where an owner of a large barn rents space to various dealers. The owner of this land takes a 5% commission from all sales made by the dealers. The problem for the owner is they do not have a central till or payment system yet. So the sales for each dealer come in many different ways such as: scraps of paper or by text, etc. The owner has requested a simple command line programme that will allow them to quickly input sales data for each dealer, and then calculate how much the dealer should be paid and how much should go to the owner of the land.
+Pay Calculator is tool created for an imagined real-world scenario where an owner of a large barn rents space to various dealers. The owner of this land takes a 5% commission from all sales made by the dealers. The problem for the owner is they do not have a central till or payment system yet. So the sales for each dealer come in many different ways such as: scraps of paper or by text, etc. The owner has requested a simple command line programme that will allow them view previous sales data and to quickly input new sales data for each dealer, and then calculate how much the dealer should be paid and how much should go to the owner of the land.
 
-Pay Calculator achieves the project goal by requesting the data in a command interface on a platform called Heroku, validates the data, calculates the pay for the dealer and the owner, displays it in real-time to the command interface and also then stores it in a Google Sheet for the owner to access historical inputs.
+Pay Calculator achieves the project goal by requesting the data in a command interface on a platform called Heroku, validates the data, asks the user to choose viewing previous data or inputting new data, calculates the pay for the dealer and the owner, displays it in real-time to the command interface and also then stores it in a Google Sheet for the owner to access historical inputs.
 
 [The live project can be viewed here.](https://pp3-pay-calculator.herokuapp.com/)
 
@@ -17,6 +17,8 @@ Please see my original plan below:
 ![](docs/images/plan-flow-diagram.png)
 
 I largely stuck to the plan except I decided to update the worksheet all in one API call as the final task, rather than on two separate calls to updated sales first and then the pay calculations later. I read that it is best served to have as few API calls as possible in an application to keep loading/run-time as quick as possible.
+
+Upon failing the initial submission of this project I then added new functionality. The assessor felt that if the user cannot access data in the Googlesheet and if they have to access the Googlesheet to obtain dealer id's then it renders the calculator less useful than just using the Googlesheet. To address this feedback I added functionality to allow the user to access previous sales data. I have changed the the programme so it displays a list of dealer id's in the programme before the user has to choose which dealer. The user should now not need to access the Googlesheet directly for any data input or retrieval.
 
 # How to use Pay Calculator
 
