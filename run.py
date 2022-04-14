@@ -34,7 +34,7 @@ def get_user_choice():
 
     print("Would you like to:\n \nA. View previous sales data for a dealer?\n \nB. \
           Enter new sales data for a dealer?\n")
-  
+
     while True:
         # input validated by user_choice_validation()
         user_choice = input("\nEnter 'a' or 'b'\n")
@@ -101,13 +101,12 @@ def get_dealer_id():
 
     return dealer_id
 
- 
+
 def dealer_id_validation(value):
-    
     """
     Some minor detail such as ValueError as e taken from Code
     Institute love sandwiches walkthrough project.
-    Check an integer has been entered and check if the dealer 
+    Check an integer has been entered and check if the dealer
     ID exists in the Google Sheet.
 
     Parameters:
@@ -157,10 +156,8 @@ def get_dealer_name(dealer_id):
     stored_dealer = dict(stored_dealer_list)
 
     dealer_name = stored_dealer.get(dealer_id)
-    print(
-        f"You are entering sales data for {dealer_name}"
-        + f" with Dealer ID {dealer_id}\n"
-        )   
+    print(f"You are entering sales data for {dealer_name}" +
+          f" with Dealer ID {dealer_id}\n")
     return dealer_name
 
 
@@ -169,8 +166,8 @@ def get_sales_data():
     Some inspiration for this function is taken from get_sales_data()
     function in the Love Sandwich walkthrough project
     Get sales data for dealer from the user.
-    Run a while loop to collect a valid integer 
-    or float of data from the user via the terminal, 
+    Run a while loop to collect a valid integer
+    or float of data from the user via the terminal,
     which must match a dealer ID in the dealers worksheet.
     The loop will repeatedly request data, until it is valid.
 
@@ -211,7 +208,7 @@ def sales_data_validation(value):
     except ValueError:
         print(f"{value} is invalid, please check your input and try again.\n")
         return False
-    
+
     return True
 
 
@@ -226,14 +223,14 @@ def calculate_dealer_pay(sales_data, dealer_name):
     print("Calculating dealer pay...\n")
 
     dealer_pay = 0
-    
+
     if float(sales_data):
         dealer_pay = round(
             float(sales_data) - ((float(sales_data) * 5) / 100), 2
                 )
     elif int(sales_data):
         dealer_pay = int(sales_data) - ((int(sales_data) * 5) / 100)
-    
+
     print(f"You need to pay {dealer_name} £{dealer_pay}\n")
 
     return dealer_pay
@@ -254,11 +251,11 @@ def calculate_house_pay(sales_data):
         house_pay = round(((float(sales_data) * 5) / 100), 2)
     elif int(sales_data):
         house_pay = ((int(sales_data) * 5) / 100)
-    
+
     print(f"You need to pay the house £{house_pay}\n")
 
     return house_pay
-    
+
 
 def date_generator():
     """
