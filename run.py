@@ -32,7 +32,8 @@ def get_user_choice():
     """
     print("\nWelcome to Pay Calculator\n")
 
-    print("Would you like to:\n \nA. View previous sales data for a dealer?\n \nB. Enter new sales data for a dealer?\n")
+    print("Would you like to:\n \nA. View previous sales data for a dealer?\n \nB. \
+          Enter new sales data for a dealer?\n")
   
     while True:
         # input validated by user_choice_validation()
@@ -41,7 +42,8 @@ def get_user_choice():
             print("Valid choice.\n")
             break
 
-    print("\nPlease select a dealer ID from the list below (dealer ID is the number to the left of the name):\n")
+    print("\nPlease select a dealer ID from the list below (dealer ID is the \
+          number to the left of the name):\n")
 
     all_dealers = SHEET.worksheet('dealer').get_all_values()[1:]
 
@@ -201,7 +203,8 @@ def sales_data_validation(value):
     """
 
     try:
-        if not float(value) and not int(value) or float(value) <= 0 and int(value) <= 0:
+        if not float(value) and not int(value) or float(value) <= 0 and \
+                int(value) <= 0:
             raise ValueError(
                 f"{value} is invalid. Please enter whole number or decimal"
             )
@@ -299,7 +302,8 @@ def main():
         dealer_pay = calculate_dealer_pay(sales_data, dealer_name)
         house_pay = calculate_house_pay(sales_data)
         date_entered = date_generator()
-        update_pay_worksheet(dealer_id, dealer_name, dealer_pay, house_pay, date_entered)
+        update_pay_worksheet(dealer_id, dealer_name, dealer_pay, house_pay,
+                             date_entered)
         main()
     elif user_choice == 'a':
         get_previous_sales_data(dealer_id)
