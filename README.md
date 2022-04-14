@@ -45,7 +45,7 @@ The data for this programme is stored in dealer_details Google sheet. This can b
 
 Then there is the 'pay' tab which stores all the outputs from the calculator: 'Dealer_ID', 'Dealer_Name', 'Total_to_pay_dealer', 'Total_to_pay_house' and 'Date_entered. This data is accessible in the programme if the user chooses to view previous sales data by selecting option a.
 
-![](docs/images/pay-tab.png)]
+![](docs/images/pay-tab.png)
 
 ## Command Line Programme
 
